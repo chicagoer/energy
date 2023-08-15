@@ -1,22 +1,20 @@
-self.addEventListener('install', event => {
-    event.waitUntil(
-      caches.open('energy-app-cache').then(cache => {
-        return cache.addAll([
-          './',
-          './index.html',
-          './styles.css',
-          './script.js',
-          './icon.png'
-        ]);
-      })
-    );
-  });
-  
-  self.addEventListener('fetch', event => {
-    event.respondWith(
-      caches.match(event.request).then(response => {
-        return response || fetch(event.request);
-      })
-    );
-  });
-  
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open('energy-tracker-cache').then((cache) => {
+      return cache.addAll([
+        './',
+        './index.html',
+        './manifest.json',
+        './images/icon.png', // Make sure this path is correct
+      ]);
+    })
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});
